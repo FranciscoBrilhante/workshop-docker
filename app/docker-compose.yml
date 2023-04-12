@@ -1,0 +1,37 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgres:latest
+    hostname: db
+    container_name: workshop-db
+    env_file: .env
+    ports:
+      - 5432:5432
+    volumes:
+      - ./data:/var/lib/postgresql/data
+    networks:
+      - workshop
+    healthcheck:
+      test: "sh -c 'pg_isready -U ${POSTGRES_USER} -d ${POSTGRES_DB}'"
+      interval: 1m30s
+      timeout: 30s
+      retries: 5
+      start_period: 30s
+  backend:
+    container_name: workshop-backend
+    hostname: backend
+    build: 
+      context: ./backend
+      dockerfile: Dockerfile 
+    ports:
+      - 8080:3001
+    networks:
+      - workshop
+    depends_on:
+      db:
+        condition: service_healthy
+
+
+networks:
+  workshop:
