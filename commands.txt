@@ -1,0 +1,55 @@
+docker run -it -d 
+#i: interactive 
+#t: smth smth terminal
+#d detach, run on background
+
+docker run -it hello-world
+#hello world example, spits out some text if working
+
+docker run ubuntu
+docker ps -a
+#a: show hidden containers
+
+docker exec -it 3f3e bash
+
+docker stop 3f3e
+#3f3e: hash ou usar container name ("musing-euler")
+
+docker system
+
+docker start 3f3e
+
+
+docker system prune
+#cleanup unused space
+
+docker images
+#list images
+
+docker container ls
+#list containers
+
+docker volume
+
+#maper porto 80 interno para 8080 acessivel no windows
+docker run -it -d -p 8080:80 nginx
+
+
+docker run -it -d -p 5432:5432 postgres:latest
+
+
+--name
+#definir nome do container
+-e
+#deninir variavel de ambiente (ex: POSTGRES_PASSWORD=123)
+
+--netowork host
+#correr aplicacao na rede local como se fosse local
+
+docker rmi nginx
+#remove image
+
+
+docker build . -t backend:latest
+
+docker compose up
